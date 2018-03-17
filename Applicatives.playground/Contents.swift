@@ -7,7 +7,7 @@ func createUser(name: String, password: String, premium: Bool, newsletter: Bool)
     // CÓMO premium,    Result.pure(premium)
     // CÓMO newsletter, Result.pure(newsletter)
     
-    //return VALIDA EL RESULTADO DE result CON LOS VALIDADORES ESPECÍFICOS DE USUARIO (SÓLO SI NO HA FALLADO YA)
+    return result.flatMap(UserValidator.Premium || UserValidator.Newsletter)
 }
 
 let user = createUser(name: "alex", password: "functionalswift", premium: true, newsletter: false)
