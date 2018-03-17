@@ -1,12 +1,13 @@
 //: Playground - Applicatives
 
 func createUser(name: String, password: String, premium: Bool, newsletter: Bool) -> Result<User, UserError> {
-    return Result.pure(newsletter)
-        .apply(Result.pure(premium)
-            .apply(Validators.Password(password)
-                .apply(Validators.Name(name)
-                    .map(curry(User.init)))))
-        .flatMap(UserValidator.Newsletter || UserValidator.Premium)
+    let result = curry(User.init)
+        <%> Validators.Name(name)
+        <*> Validators.Password(password)
+        <*> Result.pure(newsletter)
+        <*> Result.pure(premium)
+
+    return result.flatMap(UserValidator.Premium || UserValidator.Newsletter)
 }
 
 let user = createUser(name: "alex", password: "functionalswift", premium: true, newsletter: false)
