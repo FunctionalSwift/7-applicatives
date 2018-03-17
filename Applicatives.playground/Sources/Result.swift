@@ -17,3 +17,9 @@ extension Result {
         }
     }
 }
+
+extension Result {
+    public static func pure(_ value: A) -> Result<A, E> {
+        return .success(value)
+    }
+}
