@@ -29,3 +29,14 @@ extension Result {
         }
     }
 }
+
+infix operator <%>: AdditionPrecedence
+infix operator <*>: AdditionPrecedence
+
+public func <%><A, B, E>(_ transform: @escaping (A) -> B, result: Result<A, E>) -> Result<B, E> {
+    return result.map(transform)
+}
+
+public func <*><A, B, E>(_ curriedResult: Result<(A) -> B, E>, result: Result<A, E>) -> Result<B, E> {
+    return result.apply(curriedResult)
+}
