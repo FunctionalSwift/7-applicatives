@@ -4,10 +4,10 @@ func createUser(name: String, password: String, premium: Bool, newsletter: Bool)
     // let result = TRATA DE CREAR UN USUARIO, UTILIZANDO:
     // CÓMO name,       EL RESULTADO DE VALIDAR "name"
     // CÓMO password,   EL RESULTADO DE VALIDAR "password"
-    // CÓMO premium,    EL RESULTADO DE VALIDAR "premium"
-    // CÓMO newsletter, EL RESULTADO DE VALIDAR "newsletter"
+    // CÓMO premium,    SIMPLEMENTE "premium"
+    // CÓMO newsletter, SIMPLEMENTE "newsletter"
     
-    // return SI LA CREACIÓN DEL USER HA FALLADO, RETORNA EL FALLO ó SINO, RETORNA EL USUARIO
+    // return VALIDA EL RESULTADO DE result CON LOS VALIDADORES ESPECÍFICOS DE USUARIO (SÓLO SI NO HA FALLADO YA)
 }
 
 let user = createUser(name: "alex", password: "functionalswift", premium: true, newsletter: false)
