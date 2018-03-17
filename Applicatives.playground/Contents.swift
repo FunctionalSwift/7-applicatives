@@ -2,8 +2,7 @@
 
 func createUser(name: String, password: String, premium: Bool, newsletter: Bool) -> Result<User, UserError> {
 
-    let result: Result<User, UserError> = Result.pure(premium).apply(Validators.Password(password).apply(Validators.Name(name).map(curry(User.init))))
-    // CÓMO newsletter, Result.pure(newsletter)
+    let result: Result<User, UserError> = Result.pure(newsletter).apply(Result.pure(premium).apply(Validators.Password(password).apply(Validators.Name(name).map(curry(User.init)))))
     
     return result.flatMap(UserValidator.Premium || UserValidator.Newsletter)
 }
