@@ -49,13 +49,13 @@ public class UserValidator {
 }
 
 public class Validators {
-    class var Name: Validator<String, UserError> {
+    public class var Name: Validator<String, UserError> {
         return validate(.userNameOutOfBounds) {
             !$0.isEmpty && $0.count <= 15
         }
     }
     
-    class var Password: Validator<String, UserError> {
+    public class var Password: Validator<String, UserError> {
         return validate(.passwordTooShort) {
             $0.count > 10
         }
