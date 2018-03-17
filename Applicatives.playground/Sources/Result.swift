@@ -22,4 +22,10 @@ extension Result {
     public static func pure(_ value: A) -> Result<A, E> {
         return .success(value)
     }
+    
+    public func apply<B>(_ resultAB: Result<(A) -> B, E>) -> Result<B, E> {
+        return resultAB.flatMap { ab in
+            self.map(ab)
+        }
+    }
 }
