@@ -15,4 +15,13 @@ struct JsonObject {
             .flatMap { try? JSONSerialization.jsonObject(with: $0) }
             .flatMap { $0 as? [String: Any] }
     }
+    
+    func get<A>(_ key: String) -> Result<A, ParseError> {
+        guard let value = dictionary?[key] else {
+            return .failure(.notFound(key))
+        }
+        
+        return (value as? A).flatMap(Result.success) ??
+            .failure(.notCastable(key, A.self))
+    }
 }
