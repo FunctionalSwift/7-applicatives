@@ -1,10 +1,8 @@
 //: Playground - Applicatives
 
 func createUser(name: String, password: String, premium: Bool, newsletter: Bool) -> Result<User, UserError> {
-    
-    let result = Validators.Name(name).map(curry(User.init))
-    // CÓMO name,       EL RESULTADO DE VALIDAR "name"
-    // CÓMO password,   EL RESULTADO DE VALIDAR "password"
+
+    let result: Result<User, UserError> = Validators.Password(password).apply(Validators.Name(name).map(curry(User.init)))
     // CÓMO premium,    Result.pure(premium)
     // CÓMO newsletter, Result.pure(newsletter)
     
