@@ -1,14 +1,18 @@
 //: Playground - Applicatives
 
-func createUser(name: String, password: String, premium: Bool, newsletter: Bool) -> Result<User, UserError> {
-    return curry(User.init)
-        <%> Validators.Name(name)
-        <*> Validators.Password(password)
-        <*> Result.pure(newsletter)
-        <*> Result.pure(premium)
-        >>= (UserValidator.Premium || UserValidator.Newsletter)
+import Foundation
+
+enum ParseError {
+    case notFound(String)
+    case notCastable(String, Any.Type)
 }
 
-let user = createUser(name: "alex", password: "functionalswift", premium: true, newsletter: false)
-
-user.map { print("SUCCESS: User created - \($0)") }
+struct JsonObject {
+    let dictionary: [String: Any]?
+    
+    init(json: String) {
+        dictionary = json.data(using: .utf8)
+            .flatMap { try? JSONSerialization.jsonObject(with: $0) }
+            .flatMap { $0 as? [String: Any] }
+    }
+}
